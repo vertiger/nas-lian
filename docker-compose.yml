@@ -3,7 +3,6 @@ version: '2'
 services:
   watchtower:
     image: v2tec/watchtower
-    container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
@@ -13,12 +12,79 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "9000:9000"
+      - "9000"
     restart: unless-stopped
   airsonos:
-    image: justintime/airsonos:latest
-    container_name: airsonos
+    image: justintime/airsonos
     network_mode: host
     ports:
       - "5000-5050"
+    restart: unless-stopped
+  transmission:
+    image: haugene/transmission-openvpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    volumes:
+      - /volume1/data/Transmission:/data
+      - /volume1/download:/data/completed
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - openvpn.env
+    environment:
+      - OPENVPN_OPTS="--inactive 3600 --ping 10 --ping-exit 60"
+      - LOCAL_NETWORK=192.168.128.0/24
+      - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=5
+      - TRANSMISSION_SCRIPT_TORRENT_DONE_ENABLED=true
+      - TRANSMISSION_SCRIPT_TORRENT_DONE_FILENAME=/data/remove.sh
+      - TRANSMISSION_SPEED_LIMIT_UP=200
+      - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
+      - TRANSMISSION_RATIO_LIMIT=0
+      - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+    ports:
+      - "9091"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+  couchpotato:
+    image: linuxserver/couchpotato
+    volumes:
+      - /volume1/data/couchpotato:/config
+      - /volume1/video/black_hole:/downloads
+      - /volume1/video/movies:/movies
+    environment:
+      - TZ=Europe/Zurich
+    ports:
+      - "5054:5050"
+    restart: unless-stopped
+  sickrage:
+    image: linuxserver/sickrage
+    volumes:
+      - /volume1/data/sickrage:/config
+      - /volume1/download:/downloads
+      - /volume1/video/series:/tv
+    environment:
+      - TZ=Europe/Zurich
+    ports:
+      - "8081"
+    restart: unless-stopped
+  beets:
+    image: linuxserver/beets
+    volumes:
+      - /volume1/data/beets:/config
+      - /volume1/download:/downloads
+      - /volume1/music:/music
+    ports:
+      - "8337"
+    restart: no
+  resilio:
+    images: resilio/sync
+    volumes:
+      - /volume1/backup:/mnt/sync
+      - /volume1/data/resilio-sync/sync.conf:/etc/sync.conf
+    ports:
+      - "28888"
+      - "55555"
     restart: unless-stopped
