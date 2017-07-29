@@ -78,9 +78,9 @@ services:
       - /volume1/music:/music
     ports:
       - "8337"
-    restart: no
+    restart: unless-stopped
   resilio:
-    images: resilio/sync
+    image: resilio/sync
     volumes:
       - /volume1/backup:/mnt/sync
       - /volume1/data/resilio-sync/sync.conf:/etc/sync.conf
@@ -88,3 +88,13 @@ services:
       - "28888"
       - "55555"
     restart: unless-stopped
+  plex:
+    image: plexinc/pms-docker:plexpass
+    network_mode: host
+    volumes:
+      - /volume1/data/Plex:/config
+      - /volume1:/data
+    env_file:
+      - plex.env
+    environment:
+      - TZ=Europe/Zurich
