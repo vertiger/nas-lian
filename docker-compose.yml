@@ -78,7 +78,7 @@ services:
       - /volume1/music:/music
     ports:
       - "8337"
-    restart: unless-stopped
+    restart: "no"
   resilio:
     image: resilio/sync
     volumes:
@@ -93,7 +93,7 @@ services:
     network_mode: host
     volumes:
       - /volume1/data/Plex:/config
-      - /volume1:/data
+      - /volume1
     env_file:
       - plex.env
     environment:
