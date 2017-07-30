@@ -82,8 +82,8 @@ services:
   resilio:
     image: resilio/sync
     volumes:
-      - /volume1/backup:/mnt/sync
-      - /volume1/data/resilio-sync/sync.conf:/etc/sync.conf
+      - /volume1/data/resilio-sync:/mnt/sync
+      - /volume1/backup:/mnt/sync/folders
     ports:
       - "28888"
       - "55555"
