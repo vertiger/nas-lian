@@ -46,7 +46,7 @@ services:
     image: linuxserver/couchpotato
     volumes:
       - /volume1/data/couchpotato:/config
-      - /volume1/video/black_hole:/downloads
+      - /volume1/download/movies:/downloads
       - /volume1/video/movies:/movies
     environment:
       - TZ=Europe/Zurich
@@ -57,7 +57,7 @@ services:
     image: linuxserver/sickrage
     volumes:
       - /volume1/data/sickrage:/config
-      - /volume1/download:/downloads
+      - /volume1/download/series:/downloads
       - /volume1/video/series:/tv
     environment:
       - TZ=Europe/Zurich
@@ -98,8 +98,17 @@ services:
     network_mode: host
     volumes:
       - /volume1/data/Plex:/config
-      - /volume1
+      - /volume1:/volume1
     env_file:
       - plex.env
     environment:
       - TZ=Europe/Zurich
+  plexpy:
+    image: linuxserver/plexpy
+    volumes:
+      - /volume1/data/PlexPy:/config
+      - /volume1/data/Plex/Library/Application Support/Plex Media Server/Logs:/logs:ro
+    environment:
+      - TZ=Europe/Zurich
+    ports:
+      - "8181:8181"
