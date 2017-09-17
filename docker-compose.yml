@@ -2,19 +2,21 @@
 version: '2'
 services:
   watchtower:
+    container_name: watchtower
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
   portainer:
-    image: portainer/portainer
     container_name: portainer
+    image: portainer/portainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "9000:9000"
     restart: unless-stopped
   transmission:
+    container_name: transmission
     image: haugene/transmission-openvpn
     cap_add:
       - NET_ADMIN
@@ -43,6 +45,7 @@ services:
       - 8.8.4.4
     restart: unless-stopped
   couchpotato:
+    container_name: couchpotato
     image: linuxserver/couchpotato
     volumes:
       - /volume1/data/couchpotato:/config
@@ -54,6 +57,7 @@ services:
       - "5054:5050"
     restart: unless-stopped
   sickrage:
+    container_name: sickrage
     image: linuxserver/sickrage
     volumes:
       - /volume1/data/sickrage:/config
@@ -65,6 +69,7 @@ services:
       - "8081:8081"
     restart: unless-stopped
   beets:
+    container_name: beets
     image: linuxserver/beets
     volumes:
       - /volume1/data/beets:/config
@@ -74,6 +79,7 @@ services:
       - "8337:8337"
     restart: "no"
   headphones:
+    container_name: headphones
     image: linuxserver/headphones
     volumes:
       - /volume1/data/headphones:/config
@@ -85,6 +91,7 @@ services:
       - "8182:8181"
     restart: unless-stopped
   resilio:
+    container_name: resilio
     image: resilio/sync
     volumes:
       - /volume1/data/resilio-sync:/mnt/sync
@@ -94,6 +101,7 @@ services:
       - "55555:55555"
     restart: unless-stopped
   plex:
+    container_name: plex
     image: plexinc/pms-docker:plexpass
     network_mode: host
     volumes:
@@ -104,6 +112,7 @@ services:
     environment:
       - TZ=Europe/Zurich
   plexpy:
+    container_name: plexpy
     image: linuxserver/plexpy
     volumes:
       - /volume1/data/PlexPy:/config
