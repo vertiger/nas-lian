@@ -6,7 +6,7 @@ services:
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --debug --cleanup
+    command: --debug --cleanup --interval 86400
     restart: unless-stopped
   portainer:
     container_name: portainer
@@ -33,7 +33,7 @@ services:
     environment:
       - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
       - LOCAL_NETWORK=192.168.128.0/24
-      - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=5
+      - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
       - TRANSMISSION_SCRIPT_TORRENT_DONE_ENABLED=true
       - TRANSMISSION_SCRIPT_TORRENT_DONE_FILENAME=/data/remove.sh
       - TRANSMISSION_SPEED_LIMIT_UP=200
