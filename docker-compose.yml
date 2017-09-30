@@ -113,6 +113,7 @@ services:
       - plex.env
     environment:
       - TZ=Europe/Zurich
+    restart: unless-stopped
   plexpy:
     container_name: plexpy
     image: linuxserver/plexpy
@@ -123,3 +124,4 @@ services:
       - TZ=Europe/Zurich
     ports:
       - "8181:8181"
+    restart: unless-stopped
