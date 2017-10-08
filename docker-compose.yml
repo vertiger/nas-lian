@@ -125,3 +125,42 @@ services:
     ports:
       - "8181:8181"
     restart: unless-stopped
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr
+    volumes:
+      - /volume1/data/Radarr:/config
+      - /volume1/download/movies:/downloads
+      - /volume1/video/movies:/movies
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
+  cardigann:
+    container_name: cardigann
+    image: linuxserver/cardigann
+    volumes:
+      - /volume1/data/cardigann:/config
+    ports:
+      - "5060:5060"
+    restart: unless-stopped
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
+    volumes:
+      - /volume1/data/jackett:/config
+      - /volume1/download:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "9117:9117"
+    restart: unless-stopped
+  muximux:
+    container_name: muximux
+    image: linuxserver/muximux
+    volumes:
+      - /volume1/data/muximux:/config
+    ports:
+      - "80:80"
+    environment:
+      - TZ=Europe/Zurich
+    restart: unless-stopped
