@@ -75,7 +75,7 @@ services:
     image: linuxserver/beets
     volumes:
       - /volume1/data/beets:/config
-      - /volume1/download:/downloads
+      - /volume1/download/music:/downloads
       - /volume1/music:/music
     ports:
       - "8337:8337"
@@ -135,14 +135,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "7878:7878"
-    restart: unless-stopped
-  cardigann:
-    container_name: cardigann
-    image: linuxserver/cardigann
-    volumes:
-      - /volume1/data/cardigann:/config
-    ports:
-      - "5060:5060"
     restart: unless-stopped
   jackett:
     container_name: jackett
