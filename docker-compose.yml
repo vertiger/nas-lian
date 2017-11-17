@@ -136,6 +136,18 @@ services:
     ports:
       - "7878:7878"
     restart: unless-stopped
+  sonarr:
+    container_name: sonarr
+    image: linuxserver/sonarr
+    volumes:
+      - /volume1/data/sonarr:/config
+      - /volume1/download/series:/downloads
+      - /volume1/video/series:/tv
+    environment:
+      - TZ=Europe/Zurich
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
   jackett:
     container_name: jackett
     image: linuxserver/jackett
