@@ -46,30 +46,6 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     restart: unless-stopped
-  couchpotato:
-    container_name: couchpotato
-    image: linuxserver/couchpotato
-    volumes:
-      - /volume1/data/couchpotato:/config
-      - /volume1/download/movies:/downloads
-      - /volume1/video/movies:/movies
-    environment:
-      - TZ=Europe/Zurich
-    ports:
-      - "5054:5050"
-    restart: unless-stopped
-  sickrage:
-    container_name: sickrage
-    image: linuxserver/sickrage
-    volumes:
-      - /volume1/data/sickrage:/config
-      - /volume1/download/series:/downloads
-      - /volume1/video/series:/tv
-    environment:
-      - TZ=Europe/Zurich
-    ports:
-      - "8081:8081"
-    restart: unless-stopped
   beets:
     container_name: beets
     image: linuxserver/beets
@@ -135,6 +111,17 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "7878:7878"
+    restart: unless-stopped
+  radarr_4k:
+    container_name: radarr-4k
+    image: linuxserver/radarr
+    volumes:
+      - /volume1/data/Radarr-4k:/config
+      - /volume1/download/moviesUHD:/downloads
+      - /volume1/video/movies-4k:/movies
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "7879:7878"
     restart: unless-stopped
   sonarr:
     container_name: sonarr
