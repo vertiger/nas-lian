@@ -85,6 +85,7 @@ services:
     volumes:
       - /volume1/data/Plex:/config
       - /volume1:/volume1
+      - /tmp:/tmp
     env_file:
       - plex.env
     environment:
