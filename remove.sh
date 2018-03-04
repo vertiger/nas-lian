@@ -2,7 +2,7 @@
 
 set -x
 
-chmod -R a+rw /data/completed
+#chmod -R a+rw /data/completed
 
 TORRENTLIST=`transmission-remote --list | sed -e '1d;$d;s/^ *//' | cut -d " " -f 1`
 
