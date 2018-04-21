@@ -59,17 +59,17 @@ services:
     ports:
       - "8337:8337"
     restart: "no"
-  headphones:
-    container_name: headphones
-    image: linuxserver/headphones
+  lidarr:
+    container_name: lidarr
+    image: linuxserver/lidarr
     volumes:
-      - /volume1/data/headphones:/config
+      - /volume1/data/lidarr:/config
       - /volume1/download/music:/downloads
       - /volume1/music:/music
     environment:
       - TZ=Europe/Zurich
     ports:
-      - "8182:8181"
+      - "8686:8686"
     restart: unless-stopped
   resilio:
     container_name: resilio
