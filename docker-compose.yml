@@ -26,7 +26,6 @@ services:
     volumes:
       - /volume1/data/Transmission:/data
       - /volume1/download:/data/completed
-      - /volume1/download/music:/downloads
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - openvpn.env
