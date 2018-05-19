@@ -42,6 +42,7 @@ services:
       - TRANSMISSION_RATIO_LIMIT_ENABLED=true
       - TRANSMISSION_RPC_HOST_WHITELIST="*,*.*,*.*.*,*.*.*.*"
       - TRANSMISSION_UMASK=0
+      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
     ports:
       - "9091:9091"
     dns:
