@@ -49,16 +49,6 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     restart: unless-stopped
-  beets:
-    container_name: beets
-    image: linuxserver/beets
-    volumes:
-      - /volume1/data/beets:/config
-      - /volume1/download/music:/downloads
-      - /volume1/music:/music
-    ports:
-      - "8337:8337"
-    restart: "no"
   lidarr:
     container_name: lidarr
     image: linuxserver/lidarr
